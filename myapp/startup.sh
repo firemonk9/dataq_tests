@@ -1,6 +1,9 @@
 #!/bin/bash
 
 # Start the first process
+echo "sleeping for 20 seconds"
+sleep 20
+
 ./bin/start-solo.sh
 status=$?
 if [ $status -ne 0 ]; then
@@ -16,7 +19,7 @@ echo "testing ##########"
 # if it detects that either of the processes has exited.
 # Otherwise it loops forever, waking up every 60 seconds
 
-while sleep 60; do
+while sleep 360; do
   ps aux |grep my_first_process |grep -q -v grep
   PROCESS_1_STATUS=$?
  

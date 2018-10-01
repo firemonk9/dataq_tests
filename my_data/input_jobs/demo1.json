@@ -1,0 +1,152 @@
+{
+  "chains": [
+    [
+      {
+        "command": [
+          "#!/bin/bash",
+          "java -version",
+          "ls -al"
+        ],
+        "jobName": "command_first"
+      },
+      {
+        "command": [
+          "#!/bin/bash",
+          "java -version",
+          "ls -al"
+        ],
+        "jobName": "command_ls",
+        "dependsOn":["command_first"]
+      },
+      {
+        "sourceData": {
+          "useOtherSchema": false,
+          "excludeColmns": [],
+          "datasetFormat": "CSV",
+          "transformations": [],
+          "datasetDelimiter": ",",
+          "datasetPath": "/Users/dhiraj/Documents/dataq/datadiff/target/scala-2.11/test-classes/sample_data/a.csv",
+          "header": true
+        },
+        "id": 1,
+        "dependsOn":["command_ls"],
+        "jobName": "csv_data_source"
+      },
+      {
+        "filterData": {
+          "filterSql": "Select * from mydata where A!='5'"
+        },
+        "id": 2,
+        "jobName": "filter_a_not_5"
+      },
+      {
+        "dataTransformRule": [
+          {
+            "column": [],
+            "rule": "",
+            "sql": true,
+            "transformSQL": "select max(A) A,max(B) B,max(C) C,D  from mytable group by D"
+          }
+        ],
+        "id": 5,
+        "jobName": "transform_max"
+      },
+      {
+        "filesCompareList": [
+          {
+            "compareColumns": false,
+            "compareCommonColumnsOnly": false,
+            "process": true,
+            "matchBoth": true,
+            "validateRowsCount": false,
+            "nullCompareEmpty": true,
+            "destFile": {
+              "useOtherSchema": false,
+              "excludeColmns": [],
+              "datasetFormat": "PARQUET",
+              "transformations": [],
+              "datasetDelimiter": ",",
+              "datasetPath": "/sample_parquet.parquet",
+              "header": false
+            },
+            "compareKey": [
+              "A"
+            ],
+            "srcFile": {
+              "useOtherSchema": false,
+              "excludeColmns": [],
+              "datasetFormat": "PARQUET",
+              "transformations": [],
+              "datasetDelimiter": ",",
+              "datasetPath": "/sample_parquet.parquet",
+              "header": false
+            }
+          }
+        ],
+        "id": 3,
+        "jobName": "record_compre"
+      }
+    ],
+    [
+      {
+        "sourceData": {
+          "useOtherSchema": false,
+          "excludeColmns": [],
+          "datasetFormat": "CSV",
+          "transformations": [],
+          "datasetDelimiter": ",",
+          "datasetPath": "/Users/dhiraj/Documents/dataq/datadiff/target/scala-2.11/test-classes/sample_data/a.csv",
+          "header": true
+        },
+        "id": 4,
+        "jobName": "source_data_a_csv"
+      },
+      {
+        "filesCompareList": [
+          {
+            "compareColumns": false,
+            "compareCommonColumnsOnly": false,
+            "process": true,
+            "matchBoth": true,
+            "validateRowsCount": false,
+            "nullCompareEmpty": true,
+            "destFile": {
+              "useOtherSchema": false,
+              "excludeColmns": [],
+              "datasetFormat": "PARQUET",
+              "transformations": [],
+              "datasetDelimiter": ",",
+              "datasetPath": "/sample_parquet.parquet",
+              "header": false
+            },
+            "compareKey": [
+              "A"
+            ],
+            "srcFile": {
+              "useOtherSchema": false,
+              "excludeColmns": [],
+              "datasetFormat": "PARQUET",
+              "transformations": [],
+              "datasetDelimiter": ",",
+              "datasetPath": "/sample_parquet.parquet",
+              "header": false
+            }
+          }
+        ],
+        "id": 3,
+        "jobName": "record_compare"
+      },
+      {
+        "command": [
+          "#!/bin/bash",
+          "java -version",
+          "ls -al"
+        ],
+        "jobName": "command_end",
+        "dependsOn": ["record_compare"]
+      }
+    ]
+  ],
+  "callBackUrl": "",
+  "flowName": "test_integration"
+}

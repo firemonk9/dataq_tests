@@ -1,0 +1,85 @@
+{
+  "root": "3l",
+  "jobMap": {
+    "5l": {
+      "jobName": "5l",
+      "dependentJob": true,
+      "right": "2l",
+      "dataTransformRule": [{
+        "column": [],
+        "rule": "",
+        "sql": true,
+        "transformSQL": "select max(A) A,max(B) B,max(C) C,D  from mytable group by D"
+      }]
+    },
+    "4l": {
+      "jobName": "4l",
+      "dependentJob": true,
+      "right": "command_first",
+      "sourceData": {
+        "useOtherSchema": false,
+        "excludeColmns": [],
+        "datasetFormat": "CSV",
+        "transformations": [],
+        "datasetDelimiter": ",",
+        "datasetPath": "/Users/dhiraj/Documents/dataq/datadiff/target/scala-2.11/test-classes/sample_data/a.csv",
+        "header": true
+      }
+    },
+    "1l": {
+      "jobName": "1l",
+      "dependentJob": true,
+      "sourceData": {
+        "useOtherSchema": false,
+        "excludeColmns": [],
+        "datasetFormat": "CSV",
+        "transformations": [],
+        "datasetDelimiter": ",",
+        "datasetPath": "/Users/dhiraj/Documents/dataq/datadiff/target/scala-2.11/test-classes/sample_data/a.csv",
+        "header": true
+      }
+    },
+    "2l": {
+      "jobName": "2l",
+      "dependentJob": true,
+      "right": "1l",
+      "filterData": {
+        "filterSql": "Select *  mydata where B!='5'"
+      }
+    },
+    "3l": {
+      "jobName": "3l",
+      "dependentJob": true,
+      "left": "4l",
+      "filesCompareList": [{
+        "compareColumns": false,
+        "compareCommonColumnsOnly": false,
+        "process": true,
+        "matchBoth": true,
+        "validateRowsCount": false,
+        "nullCompareEmpty": true,
+        "destFile": {
+          "useOtherSchema": false,
+          "excludeColmns": [],
+          "datasetFormat": "PARQUET",
+          "transformations": [],
+          "datasetDelimiter": ",",
+          "datasetPath": "/sample_parquet.parquet",
+          "header": false
+        },
+        "compareKey": ["A"],
+        "srcFile": {
+          "useOtherSchema": false,
+          "excludeColmns": [],
+          "datasetFormat": "PARQUET",
+          "transformations": [],
+          "datasetDelimiter": ",",
+          "datasetPath": "/sample_parquet.parquet",
+          "header": false
+        }
+      }],
+      "right": "5l"
+    }
+  },
+  "flowName": "f1"
+}

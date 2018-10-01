@@ -1,0 +1,3 @@
+type=command
+command=bash ./3l.sh ${JAVA_HOME} ${SPARK_HOME} ${azkaban.flow.projectid} ${azkaban.flow.execid} ${azkaban.job.id} /var/folders/kp/r0vn6rqs4k5gjtkwkz82j1080000gp/T/dataq/f1/input_3l.json /var/folders/kp/r0vn6rqs4k5gjtkwkz82j1080000gp/T/dataq/f1/output_3l.json
+dependencies=command_first

@@ -1,5 +1,13 @@
 version: '3'
 services:
+  db:
+    build:  ./db/
+    environment:
+      MYSQL_ROOT_PASSWORD: 'test_pass' # TODO: Change this
+      MYSQL_USER: 'test'
+      MYSQL_PASS: 'pass'
+    ports:
+      - "3306:3306"  
   myapp:
     build: ./myapp/
     ports:
@@ -7,13 +15,7 @@ services:
     depends_on:
       - "db"
     volumes:
-      - ./my_data:/my_data
-  db:
-    build:  ./db/
-    environment:
-      MYSQL_ROOT_PASSWORD: 'test_pass' # TODO: Change this
-      MYSQL_USER: 'test'
-      MYSQL_PASS: 'pass'
+      - ./my_data:/my_data      
   livy:
     build: ./livy/
     ports:
