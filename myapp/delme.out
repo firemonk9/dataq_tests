@@ -1,0 +1,25 @@
+Script started on Sun Sep 30 20:41:06 2018
+[?1034h
+/Users/dhiraj/Documents/dataq/dataq_testing/stand_alone/myapp
+==> ls -al
+total 71736
+drwxr-xr-x  10 dhiraj  staff       320 Sep 30 20:40 .
+drwxr-xr-x   8 dhiraj  staff       256 Sep 28 22:51 ..
+-rw-r--r--   1 dhiraj  staff      1594 Sep 30 15:40 Dockerfile
+-rw-r--r--   1 dhiraj  staff  35909621 Sep 30 00:12 azkaban-solo-server-3.51.0-10-g49996e4a.zip
+-rw-r--r--   1 dhiraj  staff      1707 Sep 28 16:22 azkaban.properties
+-rw-r--r--   1 dhiraj  staff        43 Sep 30 20:41 delme.out
+-rw-r--r--@  1 dhiraj  staff        17 Sep 29 10:38 docker_command.sh
+-rw-r--r--@  1 dhiraj  staff       837 Sep 30 15:36 startup.sh
+-rw-r--r--   1 dhiraj  staff         8 Sep 28 23:22 test.out
+-rw-r--r--   1 dhiraj  staff      1090 Sep 30 20:41 typescript
+
+/Users/dhiraj/Documents/dataq/dataq_testing/stand_alone/myapp
+==> whoami
+dhiraj
+
+/Users/dhiraj/Documents/dataq/dataq_testing/stand_alone/myapp
+==> exit
+exit
+
+Script done on Sun Sep 30 20:41:15 2018

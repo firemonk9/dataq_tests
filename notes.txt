@@ -1,0 +1,7 @@
+
+# docker build image
+docker build -t stand_alone .
+
+
+# dopcker run the image
+docker run -it --rm stand_alone

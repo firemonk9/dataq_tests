@@ -1,0 +1,29 @@
+version: '3'
+services:
+  myapp:
+    build: ./myapp/
+    ports:
+      - "8081:8081"
+    depends_on:
+      - "db"
+    volumes:
+      - ./my_data:/my_data
+  db:
+    build:  ./db/
+    environment:
+      MYSQL_ROOT_PASSWORD: 'test_pass' # TODO: Change this
+      MYSQL_USER: 'test'
+      MYSQL_PASS: 'pass'
+  livy:
+    build: ./livy/
+    ports:
+      - "8998:8998"    
+    volumes:
+      - ./my_data:/my_data
+  test_client:
+    image: "frolvlad/alpine-python3"
+    volumes:
+      - ./my_data:/my_data
+volumes:
+  my_data:
+  
