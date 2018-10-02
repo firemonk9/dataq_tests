@@ -1,3 +1,0 @@
-type=command
-command=bash ./command_first.sh 
-dependencies=

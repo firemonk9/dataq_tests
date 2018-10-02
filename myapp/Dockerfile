@@ -7,6 +7,7 @@
 # Pull base image
 FROM openjdk:8-jdk
 
+
 # Env variables
 ENV SCALA_VERSION 2.12.6
 ENV SBT_VERSION 1.2.3
@@ -40,6 +41,15 @@ RUN apt-get install -qy tmux
 RUN apt-get install -qy wget
 RUN apt-get install -qy unzip
 RUN apt-get install -qy vim
+
+RUN wget https://archive.apache.org/dist/spark/spark-2.2.0/spark-2.2.0-bin-hadoop2.7.tgz
+RUN tar zxf spark-2.2.0-bin-hadoop2.7.tgz
+RUN export SPARK_HOME=/spark-2.2.0-bin-hadoop2.7
+ENV PATH="/spark-2.2.0-bin-hadoop2.7/bin:${PATH}"
+RUN echo "export PATH=/spark-2.2.0-bin-hadoop2.7/bin:$PATH" >> /root/.bashrc
+
+RUN echo "Spark downlopaded"
+RUN echo `pwd`
 
 RUN apt-get update
 

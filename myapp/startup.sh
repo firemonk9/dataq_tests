@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Start the first process
-echo "sleeping for 20 seconds"
-sleep 20
+echo "sleeping for 10 seconds"
+sleep 10
 
 ./bin/start-solo.sh
 status=$?
@@ -20,7 +20,7 @@ echo "testing ##########"
 # Otherwise it loops forever, waking up every 60 seconds
 
 while sleep 360; do
-  ps aux |grep my_first_process |grep -q -v grep
+  ps aux |grep azkaban-solo-server |grep -q -v grep
   PROCESS_1_STATUS=$?
  
   # If the greps above find anything, they exit with 0 status

@@ -1,0 +1,54 @@
+{
+    "root": "dd3l",
+    "flowName":"first_example",
+    "jobMap": {
+        "command_first": {
+            "command": [
+                "#!/bin/bash",
+                "java -version",
+                "ls -al"
+            ],
+            "dependentJob":false,
+            "id": "command_first"
+        },
+        "command_second": {
+            "command": [
+                "#!/bin/bash",
+                "java -version",
+                "ls -al"
+            ],
+            "id": "command_second",
+            "dependentJob":false,
+            "dependsOn": ["command_first"]
+        },
+        "third": {
+            "command": [
+                "#!/bin/bash",
+                "java -version",
+                "ls -al"
+            ],
+            "id": "third",
+            "dependentJob":false
+        },
+        "fourth": {
+            "command": [
+                "#!/bin/bash",
+                "java -version",
+                "ls -al"
+            ],
+            "id": "fourth",
+            "dependentJob":false
+        },
+        "fifth": {
+            "command": [
+                "#!/bin/bash",
+                "java -version",
+                "ls -al"
+            ],
+            "id": "fifth",
+            "dependentJob":false,
+            "dependsOn": ["command_second","third","fourth"]
+        }
+
+    }
+}

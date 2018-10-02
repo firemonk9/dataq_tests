@@ -1,33 +1,19 @@
 {
-  "root": "3l",
+  "root": "dd3l",
   "jobMap": {
-    "5l": {
-      "jobName": "5l",
+    "dd5l": {
+      "id": "dd5l",
       "dependentJob": true,
-      "right": "2l",
+      "dependsOn": ["dd2l"],
       "dataTransformRule": [{
         "column": [],
         "rule": "",
         "sql": true,
-        "transformSQL": "select max(A) A,max(B) B,max(C) C,D  from mytable group by D"
+        "transformSQL": "select max(A) A,max(B) B,max(C) C,D  from dd2l group by D"
       }]
     },
-    "4l": {
-      "jobName": "4l",
-      "dependentJob": true,
-      "right": "command_first",
-      "sourceData": {
-        "useOtherSchema": false,
-        "excludeColmns": [],
-        "datasetFormat": "CSV",
-        "transformations": [],
-        "datasetDelimiter": ",",
-        "datasetPath": "/Users/dhiraj/Documents/dataq/datadiff/target/scala-2.11/test-classes/sample_data/a.csv",
-        "header": true
-      }
-    },
-    "1l": {
-      "jobName": "1l",
+    "dd4l": {
+      "id": "dd4l",
       "dependentJob": true,
       "sourceData": {
         "useOtherSchema": false,
@@ -35,22 +21,34 @@
         "datasetFormat": "CSV",
         "transformations": [],
         "datasetDelimiter": ",",
-        "datasetPath": "/Users/dhiraj/Documents/dataq/datadiff/target/scala-2.11/test-classes/sample_data/a.csv",
+        "datasetPath": "/my_data/data/a.csv",
         "header": true
       }
     },
-    "2l": {
-      "jobName": "2l",
+    "dd1l": {
+      "id": "dd1l",
       "dependentJob": true,
-      "right": "1l",
+      "sourceData": {
+        "useOtherSchema": false,
+        "excludeColmns": [],
+        "datasetFormat": "CSV",
+        "transformations": [],
+        "datasetDelimiter": ",",
+        "datasetPath": "/my_data/data/a.csv",
+        "header": true
+      }
+    },
+    "dd2l": {
+      "id": "dd2l",
+      "dependentJob": true,
+      "dependsOn": ["dd1l"],
       "filterData": {
-        "filterSql": "Select *  mydata where B!='5'"
+        "filterSql": "Select *  from dd1l where B!='5'"
       }
     },
-    "3l": {
-      "jobName": "3l",
+    "dd3l": {
+      "id": "dd3l",
       "dependentJob": true,
-      "left": "4l",
       "filesCompareList": [{
         "compareColumns": false,
         "compareCommonColumnsOnly": false,
@@ -64,7 +62,7 @@
           "datasetFormat": "PARQUET",
           "transformations": [],
           "datasetDelimiter": ",",
-          "datasetPath": "/sample_parquet.parquet",
+          "datasetPath": "/my_data/data/sample_parquet.parquet",
           "header": false
         },
         "compareKey": ["A"],
@@ -74,11 +72,11 @@
           "datasetFormat": "PARQUET",
           "transformations": [],
           "datasetDelimiter": ",",
-          "datasetPath": "/sample_parquet.parquet",
+          "datasetPath": "/my_data/data/sample_parquet.parquet",
           "header": false
         }
       }],
-      "right": "5l"
+      "dependsOn": ["dd5l","dd4l"]
     }
   },
   "flowName": "f1"

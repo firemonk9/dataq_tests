@@ -1,7 +1,12 @@
 
 # docker build image
-docker build -t stand_alone .
+docker-compose build 
 
 
-# dopcker run the image
-docker run -it --rm stand_alone
+# dopcker to start
+docker-compose up -d
+
+
+# execute the python test case 
+python my_data/python_tests/rest_api.py ./my_data/input_jobs/demo_simple_hello_world.json
+

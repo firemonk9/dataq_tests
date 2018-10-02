@@ -131,8 +131,8 @@ def getResults(sid,exec_id):
 	print(response.headers)
 
 
-def create_flow_test(sid,proj_id):
-	ress = upload_json(sid,"hi1","hi1",proj_id,"/Users/dhiraj/Documents/dataq/DataqAzkaban/src/main/resources/demo_1.json")
+def create_flow_test(sid,proj_id,flow_json):
+	ress = upload_json(sid,"hi1","hi1",proj_id,flow_json)
 	print("step 1: ")
 	print(ress)
 	ress1=json.loads(ress)
@@ -152,19 +152,19 @@ def proxy_test(sid):
 
 sid=get_session()
 # create_flow_test(sid)
-wf_path=sys.argv[0]
-
+wf_path=sys.argv[1]
 create_project(sid,"p1")
-
+print(wf_path)
+# json flow -- "/Users/dhiraj/Documents/dataq/DataqAzkaban/src/main/resources/demo_1.json"
 #wf_path='/Users/dhiraj/Desktop/sample_flow_01.zip'
-# proj_id = '16'
+proj_id = '1'
 # exec_id = '1'
-# flow_id = 'shell_echo'
-# create_flow_test(sid,proj_id)
+flow_id = 'shell_echo'
+#create_flow_test(sid,proj_id)
 # sid=get_session()
 # syncTest(sid)
 print(sid)
-# crete_wf(sid,proj_id,wf_path)
+create_flow_test(sid,proj_id,wf_path)
 
 # invoke_dv_zip_upload(sid,proj_id,exec_id)
 
