@@ -1,10 +1,21 @@
+# use docker-compose to set up containers to test DataQ.
+
+
+# to run place the following jars
+# 1) azkaban solo distZip build file to myapp
+# 2) DataQ jar to /my_data/jars/dataq-v2.jar
+
+# basic.json : has only command jobs with multi dependency
+
 
 # docker build image
 docker-compose build 
 
-
 # dopcker to start
 docker-compose up -d
+
+# dopcker to stop
+docker-compose down
 
 
 # execute the python test case 

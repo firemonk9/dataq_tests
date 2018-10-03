@@ -125,10 +125,11 @@ def syncTest(sid):
 
 def getResults(sid,exec_id):
 	response = requests.get('http://localhost:8081/dvFlowUpload', params={'session.id': sid,'ajax':'fetchResults','exec_id':exec_id})
-	print(response.request.body)
-	print(response.request.headers)
-	print(response.content)
-	print(response.headers)
+	# print(response.request.body)
+	# print(response.request.headers)
+	# print(response.content)
+	# print(response.headers)
+	return response
 
 
 def create_flow_test(sid,proj_id,flow_json):
@@ -139,8 +140,23 @@ def create_flow_test(sid,proj_id,flow_json):
 	execRes = executeFlow(sid,ress1["project_name"],ress1["flow_id"])
 	execResDict = json.loads(execRes)
 	print(execResDict["execid"])
-	time.sleep(60)
-	getResults(sid,execResDict["execid"])
+	#loop 20 times: # wait for 2 min max
+	print("BEGIN#####")
+	for x in range(0, 10):	
+		time.sleep(2)
+		rress = getResults(sid,execResDict["execid"])
+		print(rress)
+		if rress.content is "":
+			print("empty")
+		else:
+			statusRes=rress.json()
+			print(rress.content)	
+			flowStatus=statusRes['exception']
+			print(flowStatus)
+			break
+		print("#############")
+		
+
 	print(ress)
 
 def proxy_test(sid):

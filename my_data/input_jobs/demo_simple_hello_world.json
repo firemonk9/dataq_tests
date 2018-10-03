@@ -1,83 +1,121 @@
 {
-  "root": "dd3l",
-  "jobMap": {
-    "dd5l": {
-      "id": "dd5l",
-      "dependentJob": true,
-      "dependsOn": ["dd2l"],
-      "dataTransformRule": [{
-        "column": [],
-        "rule": "",
-        "sql": true,
-        "transformSQL": "select max(A) A,max(B) B,max(C) C,D  from dd2l group by D"
-      }]
-    },
-    "dd4l": {
-      "id": "dd4l",
-      "dependentJob": true,
-      "sourceData": {
-        "useOtherSchema": false,
-        "excludeColmns": [],
-        "datasetFormat": "CSV",
-        "transformations": [],
-        "datasetDelimiter": ",",
-        "datasetPath": "/my_data/data/a.csv",
-        "header": true
-      }
-    },
-    "dd1l": {
-      "id": "dd1l",
-      "dependentJob": true,
-      "sourceData": {
-        "useOtherSchema": false,
-        "excludeColmns": [],
-        "datasetFormat": "CSV",
-        "transformations": [],
-        "datasetDelimiter": ",",
-        "datasetPath": "/my_data/data/a.csv",
-        "header": true
-      }
-    },
-    "dd2l": {
-      "id": "dd2l",
-      "dependentJob": true,
-      "dependsOn": ["dd1l"],
-      "filterData": {
-        "filterSql": "Select *  from dd1l where B!='5'"
-      }
-    },
-    "dd3l": {
-      "id": "dd3l",
-      "dependentJob": true,
-      "filesCompareList": [{
-        "compareColumns": false,
-        "compareCommonColumnsOnly": false,
-        "process": true,
-        "matchBoth": true,
-        "validateRowsCount": false,
-        "nullCompareEmpty": true,
-        "destFile": {
-          "useOtherSchema": false,
-          "excludeColmns": [],
-          "datasetFormat": "PARQUET",
-          "transformations": [],
-          "datasetDelimiter": ",",
-          "datasetPath": "/my_data/data/sample_parquet.parquet",
-          "header": false
+    "callBackUrl": "http://localhost:8081/dvResults?action=upload",
+    "flowName": "f1",
+    "jobMap": {
+        "command_first": {
+            "command": [
+                "#!/bin/bash",
+                "java -version",
+                "ls -al"
+            ],
+            "dependentJob": false,
+            "id": "command_first"
         },
-        "compareKey": ["A"],
-        "srcFile": {
-          "useOtherSchema": false,
-          "excludeColmns": [],
-          "datasetFormat": "PARQUET",
-          "transformations": [],
-          "datasetDelimiter": ",",
-          "datasetPath": "/my_data/data/sample_parquet.parquet",
-          "header": false
+        "command_second": {
+            "command": [
+                "#!/bin/bash",
+                "java -version",
+                "ls -al"
+            ],
+            "dependentJob": false,
+            "dependsOn": [
+                "command_first"
+            ],
+            "id": "command_second"
+        },
+        "dd1l": {
+            "dependentJob": true,
+            "id": "dd1l",
+            "sourceData": {
+                "datasetDelimiter": ",",
+                "datasetFormat": "CSV",
+                "datasetPath": "/my_data/data/a.csv",
+                "excludeColmns": [],
+                "header": true,
+                "transformations": [],
+                "useOtherSchema": false
+            },
+            "dependsOn": [
+                "command_second"
+            ]
+        },
+        "dd2l": {
+            "dependentJob": true,
+            "dependsOn": [
+                "dd1l"
+            ],
+            "filterData": {
+                "filterSql": "Select *  from dd1l where B!='5'"
+            },
+            "id": "dd2l"
+        },
+        "dd3l": {
+            "dependentJob": true,
+            "dependsOn": [
+                "dd5l",
+                "dd4l"
+            ],
+            "filesCompareList": [
+                {
+                    "compareColumns": false,
+                    "compareCommonColumnsOnly": false,
+                    "compareKey": [
+                        "A"
+                    ],
+                    "destFile": {
+                        "datasetDelimiter": ",",
+                        "datasetFormat": "PARQUET",
+                        "datasetPath": "/my_data/data/sample_parquet.parquet",
+                        "excludeColmns": [],
+                        "header": false,
+                        "transformations": [],
+                        "useOtherSchema": false
+                    },
+                    "matchBoth": true,
+                    "nullCompareEmpty": true,
+                    "process": true,
+                    "srcFile": {
+                        "datasetDelimiter": ",",
+                        "datasetFormat": "PARQUET",
+                        "datasetPath": "/my_data/data/sample_parquet.parquet",
+                        "excludeColmns": [],
+                        "header": false,
+                        "transformations": [],
+                        "useOtherSchema": false
+                    },
+                    "validateRowsCount": false
+                }
+            ],
+            "id": "dd3l"
+        },
+        "dd4l": {
+            "dependentJob": true,
+            "id": "dd4l",
+            "sourceData": {
+                "datasetDelimiter": ",",
+                "datasetFormat": "CSV",
+                "datasetPath": "/my_data/data/a.csv",
+                "excludeColmns": [],
+                "header": true,
+                "transformations": [],
+                "useOtherSchema": false
+            }
+        },
+        "dd5l": {
+            "dataTransformRule": [
+                {
+                    "column": [],
+                    "rule": "",
+                    "sql": true,
+                    "transformSQL": "select max(A) A,max(B) B,max(C) C,D  from dd2l group by D"
+                }
+            ],
+            "dependentJob": true,
+            "dependsOn": [
+                "dd2l"
+            ],
+            "id": "dd5l"
         }
-      }],
-      "dependsOn": ["dd5l","dd4l"]
-    }
-  },
-  "flowName": "f1"
+    },
+    "root": "dd3l"
 }

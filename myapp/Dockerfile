@@ -42,6 +42,8 @@ RUN apt-get install -qy wget
 RUN apt-get install -qy unzip
 RUN apt-get install -qy vim
 
+RUN mkdir -p /tmp/dataq/output/
+
 RUN wget https://archive.apache.org/dist/spark/spark-2.2.0/spark-2.2.0-bin-hadoop2.7.tgz
 RUN tar zxf spark-2.2.0-bin-hadoop2.7.tgz
 RUN export SPARK_HOME=/spark-2.2.0-bin-hadoop2.7

@@ -1,5 +1,6 @@
 {
     "root": "dd3l",
+    "callBackUrl": "http://localhost:8081/dvResults?action=upload",
     "flowName":"first_example",
     "jobMap": {
         "command_first": {

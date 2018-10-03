@@ -147,6 +147,6 @@
       }
     ]
   ],
-  "callBackUrl": "",
+  "callBackUrl": "http://localhost:8081/dvResults",
   "flowName": "test_integration"
 }

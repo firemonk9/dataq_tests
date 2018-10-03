@@ -1,0 +1,110 @@
+{
+  "res": {
+    "dd5l": {
+      "job": {
+        "id": "dd5l",
+        "dependentJob": true,
+        "dependsOn": ["dd2l"],
+        "dataTransformRule": [{
+          "column": [],
+          "rule": "",
+          "sql": true,
+          "transformSQL": "select max(A) A,max(B) B,max(C) C,D  from dd2l group by D"
+        }]
+      },
+      "res": {
+        "status": "CANCELLED"
+      }
+    },
+    "dd2l": {
+      "job": {
+        "id": "dd2l",
+        "dependentJob": true,
+        "dependsOn": ["dd1l"],
+        "filterData": {
+          "filterSql": "Select *  from dd1l where B!='5'"
+        }
+      },
+      "res": {
+        "status": "CANCELLED"
+      }
+    },
+    "dd4l": {
+      "job": {
+        "id": "dd4l",
+        "dependentJob": true,
+        "sourceData": {
+          "useOtherSchema": false,
+          "excludeColmns": [],
+          "datasetFormat": "CSV",
+          "transformations": [],
+          "datasetDelimiter": ",",
+          "datasetPath": "/my_data/data/a.csv",
+          "header": true
+        }
+      },
+      "res": {
+        "status": "CANCELLED"
+      }
+    },
+    "dd3l": {
+      "job": {
+        "id": "dd3l",
+        "dependentJob": true,
+        "dependsOn": ["dd5l", "dd4l"],
+        "filesCompareList": [{
+          "compareColumns": false,
+          "compareCommonColumnsOnly": false,
+          "process": true,
+          "matchBoth": true,
+          "validateRowsCount": false,
+          "nullCompareEmpty": true,
+          "destFile": {
+            "useOtherSchema": false,
+            "excludeColmns": [],
+            "datasetFormat": "PARQUET",
+            "transformations": [],
+            "datasetDelimiter": ",",
+            "datasetPath": "/my_data/data/sample_parquet.parquet",
+            "header": false
+          },
+          "compareKey": ["A"],
+          "srcFile": {
+            "useOtherSchema": false,
+            "excludeColmns": [],
+            "datasetFormat": "PARQUET",
+            "transformations": [],
+            "datasetDelimiter": ",",
+            "datasetPath": "/my_data/data/sample_parquet.parquet",
+            "header": false
+          }
+        }]
+      },
+      "res": {
+        "status": "CANCELLED"
+      }
+    },
+    "dd1l": {
+      "job": {
+        "id": "dd1l",
+        "dependentJob": true,
+        "dependsOn": ["command_second"],
+        "sourceData": {
+          "useOtherSchema": false,
+          "excludeColmns": [],
+          "datasetFormat": "CSV",
+          "transformations": [],
+          "datasetDelimiter": ",",
+          "datasetPath": "/my_data/data/a.csv",
+          "header": true
+        }
+      },
+      "res": {
+        "status": "CANCELLED"
+      }
+    }
+  },
+  "flowName": "f1",
+  "exception": false,
+  "root": "dd3l"
+}
