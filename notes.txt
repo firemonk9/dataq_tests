@@ -6,6 +6,7 @@
 # 2) DataQ jar to /my_data/jars/dataq-v2.jar
 
 # basic.json : has only command jobs with multi dependency
+# basic.json : has only command jobs with multi dependency
 
 
 # docker build image

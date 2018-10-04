@@ -42,7 +42,6 @@ RUN apt-get install -qy wget
 RUN apt-get install -qy unzip
 RUN apt-get install -qy vim
 
-RUN mkdir -p /tmp/dataq/output/
 
 RUN wget https://archive.apache.org/dist/spark/spark-2.2.0/spark-2.2.0-bin-hadoop2.7.tgz
 RUN tar zxf spark-2.2.0-bin-hadoop2.7.tgz
@@ -63,10 +62,9 @@ RUN unzip azkaban-solo-server-3.51.0-10-g49996e4a.zip
 RUN rm /root/azkaban-solo-server-3.51.0-10-g49996e4a/conf/azkaban.properties
 COPY azkaban.properties /root/azkaban-solo-server-3.51.0-10-g49996e4a/conf/
 COPY startup.sh /root/azkaban-solo-server-3.51.0-10-g49996e4a/
-
+COPY dataqAzkabanBridge.jar /root/azkaban-solo-server-3.51.0-10-g49996e4a/lib/
 
 RUN apt-get install -qy maven
-
 
 WORKDIR /root/azkaban-solo-server-3.51.0-10-g49996e4a
 RUN chmod +x startup.sh
